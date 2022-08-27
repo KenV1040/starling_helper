@@ -12,6 +12,7 @@ console_handler.setLevel(logging.CRITICAL)  # set later by set_log_level_from_ve
 console_handler.setFormatter(logging.Formatter('[%(levelname)s](%(name)s): %(message)s'))
 log.addHandler(console_handler)
 
+# Create a logging file so it always log to file as well.
 if not os.path.exists('logs'): os.mkdir('logs')
 
 log_file_handler = logging.handlers.TimedRotatingFileHandler('logs/args.log', when='M', interval=2)
