@@ -3,10 +3,13 @@ import logging
 import dotenv
 import argparse
 
+
 def argparse():
-    parser = argparse.ArgumentParser(description="This script handles automatic space transfer between certain transactions, and also automatic budgeting at payday")
-    
+    parser = argparse.ArgumentParser(
+        description="This script handles automatic space transfer between certain transactions, and also automatic budgeting at payday")
+
     return parser.parse_args()
+
 
 def main():
     logging.info("Script started...")
@@ -15,4 +18,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
