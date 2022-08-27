@@ -1,6 +1,8 @@
 import argparse
 import os
 import logging.handlers
+import sys
+
 import dotenv
 
 # Initiate logger
@@ -12,7 +14,7 @@ console_handler.setLevel(logging.CRITICAL)  # set later by set_log_level_from_ve
 console_handler.setFormatter(logging.Formatter('[%(levelname)s](%(name)s): %(message)s'))
 log.addHandler(console_handler)
 
-# Create a logging file so it always log to file as well.
+# Create a logging file and make sure it logs to file as well.
 if not os.path.exists('logs'): os.mkdir('logs')
 
 log_file_handler = logging.handlers.TimedRotatingFileHandler('logs/args.log', when='M', interval=2)
@@ -35,6 +37,34 @@ def set_log_level_from_verbose(args):
         log.critical("UNEXPLAINED NEGATIVE COUNT!")
 
 
+def budget():
+    print('placeholder')
+
+
+def interface():
+    log.info('Running interface now...')
+    user_input = 0
+    while user_input != -1:
+        print('Starling Helper')
+        print('1: Budget')
+        print('2: Exit')
+        try:
+            user_input = int(input('Pick a number: '))
+            if user_input == 1:
+                budget()
+            else:
+                user_input = -1
+                log.info('Bye!')
+        except ValueError:
+            log.warning('Please enter in a number')
+        except Exception as e:
+            if log.level == logging.DEBUG:
+                raise e
+            else:
+                log.error('Unknown user input from interface')
+                sys.exit()
+
+
 def main():
     # Init the argument parser.
     parser = argparse.ArgumentParser(
@@ -45,7 +75,7 @@ def main():
     set_log_level_from_verbose(parser.parse_args())
 
     log.info('Scrip started')
-    log.warning('hi world')
+    interface()
 
 
 if __name__ == '__main__':
