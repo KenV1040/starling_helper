@@ -14,9 +14,12 @@ class StarlingCtrl:
         try:
             response = None
             if method == 'GET':
-                response = r.get(self._base_endpoint + endpoint, headers=self._header)
+                response = r.get(self._base_endpoint + endpoint, headers=self._header, verify='./certs/starling-prod'
+                                                                                              '-api-certificate.crt')
             elif method == 'POST':
-                response = r.post(self._base_endpoint + endpoint, headers=self._header, data=body)
+                response = r.post(self._base_endpoint + endpoint, headers=self._header, data=body,
+                                  verify='./certs/starling-prod'
+                                         '-api-certificate.crt')
             response.raise_for_status()
             return response
         except r.exceptions.HTTPError as errh:
