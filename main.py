@@ -2,8 +2,8 @@ import argparse
 import os
 import logging.handlers
 import sys
-
-import dotenv
+import starling_controller
+from dotenv import load_dotenv
 
 # Initiate logger
 log = logging.getLogger('ken.starlingHelper')
@@ -37,8 +37,11 @@ def set_log_level_from_verbose(args):
         log.critical("UNEXPLAINED NEGATIVE COUNT!")
 
 
+# Function to start the budgeting part.
 def budget():
-    print('placeholder')
+    load_dotenv()
+    star_ctrl = starling_controller.StarlingCtrl(authorised=True, session_token=os.getenv('PAT'))
+    print(star_ctrl.get_accounts())
 
 
 def interface():
